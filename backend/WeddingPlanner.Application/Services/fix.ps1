@@ -1,0 +1,1 @@
+$content = Get-Content EventService.cs -Raw; $content = $content -replace "entity\.InvitationMode = dto\.InvitationMode,`r?`n\s*SelectedPackage = dto\.SelectedPackage;", "entity.InvitationMode = dto.InvitationMode;`n        if (dto.SelectedPackage != null) entity.SelectedPackage = dto.SelectedPackage;"; Set-Content EventService.cs -Value $content;
