@@ -94,7 +94,7 @@ export default function GiftTracker() {
 
   return (
     <div>
-      <header className="flex justify-between items-center mb-8">
+      <header className="flex flex-responsive justify-between items-center mb-8">
         <div>
           <Heading level={2} color="var(--color-primary)">
             {t("gifts_title")}
@@ -177,8 +177,8 @@ export default function GiftTracker() {
                 placeholder={t("notes_placeholder")}
               />
             </div>
-            <Button onClick={handleSave}>{t("btn_save")}</Button>
-            <Button variant="secondary" onClick={() => setEditingGuest(null)}>
+            <Button className="mobile-full-btn" onClick={handleSave}>{t("btn_save")}</Button>
+            <Button className="mobile-full-btn" variant="secondary" onClick={() => setEditingGuest(null)}>  
               {t("btn_cancel")}
             </Button>
           </div>
@@ -209,7 +209,7 @@ export default function GiftTracker() {
 
                   return (
                     <tr key={i}>
-                      <td style={{ fontWeight: 500 }}>{gName}</td>
+                      <td data-label="Nume" style={{ fontWeight: 500 }}>{gName}</td>
                       <td
                         style={{
                           color:
@@ -224,9 +224,8 @@ export default function GiftTracker() {
                       <td style={{ color: "var(--color-text-secondary)" }}>
                         {existingGift?.notes || "-"}
                       </td>
-                      <td>
-                        <Button
-                          variant="secondary"
+                      <td data-label="Acțiune">
+                        <Button variant="secondary"
                           style={{
                             padding: "4px 8px",
                             fontSize: "0.8rem",

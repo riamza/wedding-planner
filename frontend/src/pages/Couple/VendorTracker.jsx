@@ -78,14 +78,14 @@ export default function VendorTracker() {
 
   return (
     <div>
-      <header className="flex justify-between items-center mb-8">
+      <header className="flex flex-responsive justify-between items-center mb-8">
         <div>
           <Heading level={2} color="var(--color-primary)">
             {t("vendors_title")}
           </Heading>
           <Text secondary>{t("vend_subtitle")}</Text>
         </div>
-        <Button>{t("btn_add_vendor")}</Button>
+        <Button className="mobile-full-btn">{t("btn_add_vendor")}</Button>
       </header>
 
       <div className="flex gap-4 mb-8" style={{ flexWrap: "wrap" }}>

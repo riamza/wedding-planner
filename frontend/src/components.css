@@ -3,46 +3,47 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 12px 18px;
-  font-family: var(--font-sans);
+  padding: 14px 28px;
+  font-family: var(--font-ui);
   font-weight: 500;
   font-size: 0.85rem;
   letter-spacing: 0.1em;
-  border-radius: 10px;
+  border-radius: 50px;
   border: 1px solid transparent;
   cursor: pointer;
-  transition: all var(--transition-normal);
+  transition: all 0.3s ease;
   text-decoration: none;
+  text-transform: uppercase;
 }
 
 .btn:active {
-  transform: scale(0.98);
+  transform: scale(0.97);
 }
 
 .btn-primary {
   background: var(--color-primary);
   color: white;
-  border-radius: 10px;
+  border-radius: 50px;
+  box-shadow: 0 4px 15px rgba(212, 163, 179, 0.3);
 }
 
 .btn-primary:hover {
   background: var(--color-primary-hover);
+  box-shadow: 0 6px 20px rgba(212, 163, 179, 0.4);
 }
 
 .btn-secondary {
   background-color: transparent;
-  color: var(--color-text);
-  border: 1px solid var(--color-border);
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
 }
 
 .btn-secondary:hover {
-  border-color: var(--color-primary);
-  color: var(--color-primary);
-  background-color: var(--color-bg);
+  background-color: var(--color-secondary);
 }
 
 .btn-icon {
-  padding: 0.5rem;
+  padding: 0.8rem;
   border-radius: 50%;
   aspect-ratio: 1;
 }
@@ -50,63 +51,75 @@
 /* Card Components */
 .card {
   background: var(--color-card);
-  border-radius: 16px;
-  padding: 24px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 10px 40px rgba(158, 137, 144, 0.08); /* Soft mauve shadow */
   position: relative;
+  border: 1px solid var(--color-border);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 50px rgba(158, 137, 144, 0.15);
 }
 
 .card::before {
   content: "";
   position: absolute;
-  top: 8px;
-  left: 8px;
-  right: 8px;
-  bottom: 8px;
-  border: 1px solid rgba(192, 132, 151, 0.15);
-  pointer-events: none;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-accent) 100%);
+  opacity: 0.8;
   border-radius: 2px;
 }
 
 .card-header {
   margin-bottom: 1.5rem;
   padding-bottom: 1rem;
-  border-bottom: 1px dashed var(--surface-200);
+  border-bottom: 1px dashed var(--color-border);
 }
 
 /* Badge tags */
 .badge {
   display: inline-flex;
   align-items: center;
-  padding: 0.25rem 0.75rem;
-  border-radius: var(--radius-full);
-  font-size: 0.8rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 50px;
+  font-size: 0.75rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.1em;
+  font-family: var(--font-ui);
 }
 
 .badge-success {
-  background: rgba(107, 176, 123, 0.2);
-  color: var(--success);
+  background: rgba(212, 163, 179, 0.15); /* Soft pink instead of green for success to keep it uniform */
+  color: var(--color-primary);
+  border: 1px solid rgba(212, 163, 179, 0.3);
 }
 .badge-warning {
-  background: rgba(242, 201, 76, 0.2);
-  color: #d4a373;
+  background: rgba(207, 169, 125, 0.15);
+  color: var(--color-accent);
+  border: 1px solid rgba(207, 169, 125, 0.3);
 }
 .badge-danger {
-  background: rgba(207, 102, 121, 0.2);
-  color: var(--danger);
+  background: rgba(189, 107, 123, 0.15);
+  color: #bd6b7b;
+  border: 1px solid rgba(189, 107, 123, 0.3);
 }
 .badge-neutral {
-  background: var(--surface-200);
-  color: var(--surface-800);
+  background: var(--color-secondary);
+  color: var(--color-text-secondary);
 }
 .glass-panel {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
-  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 10px 40px rgba(158, 137, 144, 0.1);
+  border-radius: 20px;
 }

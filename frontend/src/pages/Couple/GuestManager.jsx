@@ -146,21 +146,22 @@ const GuestManager = () => {
 
   return (
     <div>
-      <header className="flex justify-between items-center mb-8">
+      <header className="flex flex-responsive justify-between items-center mb-8">
         <div>
           <Heading level={2} color="var(--color-primary)">
             {t("manage_guests_title")}
           </Heading>
           <Text secondary>{t("manage_guests_desc")}</Text>
         </div>
-        <div style={{ display: "flex", gap: "1rem" }}>
+        <div className="flex flex-responsive" style={{ gap: "1rem" }}>
           <Button
+            className="mobile-full-btn"
             variant="secondary"
             onClick={() => setShowAddGroup(!showAddGroup)}
           >
             {showAddGroup ? t("btn_cancel") : t("create_new_group")}
           </Button>
-          <Button onClick={() => setShowAdd(!showAdd)}>
+          <Button className="mobile-full-btn" onClick={() => setShowAdd(!showAdd)}>
             {showAdd ? t("btn_cancel") : t("btn_add")}
           </Button>
         </div>
@@ -174,7 +175,7 @@ const GuestManager = () => {
             border: "1px dashed var(--color-primary)",
           }}
         >
-          <div style={{ display: "flex", gap: "1rem", alignItems: "flex-end" }}>
+          <div className="flex-responsive" style={{ display: "flex", gap: "1rem", alignItems: "flex-end" }}>
             <div style={{ flex: 1 }}>
               <label
                 style={{
@@ -513,7 +514,7 @@ const GuestManager = () => {
                 <tbody>
                   {filteredGuests.map((g) => (
                     <tr key={g.id}>
-                      <td style={{ fontWeight: 500 }}>
+                      <td data-label="Nume" style={{ fontWeight: 500 }}>
                         {g.name ||
                           g.fullName ||
                           (
@@ -522,7 +523,7 @@ const GuestManager = () => {
                             (g.lastName || "")
                           ).trim()}
                       </td>
-                      <td>
+                      <td data-label="Status">
                         <Badge color={getBadgeColor(g.rsvpStatus)}>
                           {t(
                             "status_" +
@@ -530,7 +531,7 @@ const GuestManager = () => {
                           ) || g.rsvpStatus}
                         </Badge>
                       </td>
-                      <td>
+                      <td data-label="Persoane">
                         <span style={{ fontSize: "0.85rem" }}>
                           {g.additionalGuests > 0
                             ? `+${g.additionalGuests} ${g.additionalGuests === 1 ? t("adult_singular") : t("adult_plural")} `
@@ -547,8 +548,8 @@ const GuestManager = () => {
                           )}
                         </span>
                       </td>
-                      <td>{g.category || "-"}</td>
-                      <td>
+                      <td data-label="Categorie">{g.category || "-"}</td>
+                      <td data-label="Acțiune">
                         <Button
                           variant="secondary"
                           style={{
@@ -561,7 +562,7 @@ const GuestManager = () => {
                           {t("btn_copy_link")}
                         </Button>
                       </td>
-                      <td>
+                      <td data-label="Acțiune">
                         <Button
                           variant="secondary"
                           style={{
@@ -612,18 +613,18 @@ const GuestManager = () => {
                     .filter((g) => g.notes && g.notes.length > 0)
                     .map((g) => (
                       <tr key={g.id + "_diet"}>
-                        <td style={{ fontWeight: 500 }}>
+                        <td data-label="Nume" style={{ fontWeight: 500 }}>
                           {g.name || g.fullName}
                         </td>
-                        <td>
-                          <Badge color={getBadgeColor(g.rsvpStatus)}>
+                        <td data-label="Status">
+                        <Badge color={getBadgeColor(g.rsvpStatus)}>
                             {t(
                               "status_" +
                                 (g.rsvpStatus || "Pending").toLowerCase(),
                             ) || g.rsvpStatus}
                           </Badge>
                         </td>
-                        <td style={{ color: "var(--color-text-secondary)" }}>
+                        <td data-label="Notițe" style={{ color: "var(--color-text-secondary)" }}>
                           {g.notes}
                         </td>
                       </tr>
@@ -664,10 +665,10 @@ const GuestManager = () => {
                     .filter((g) => g.message && g.message.length > 0)
                     .map((g) => (
                       <tr key={g.id + "_msg"}>
-                        <td style={{ fontWeight: 500 }}>
+                        <td data-label="Nume" style={{ fontWeight: 500 }}>
                           {g.name || g.fullName}
                         </td>
-                        <td style={{ color: "var(--color-text-secondary)" }}>
+                        <td data-label="Mesaj" style={{ color: "var(--color-text-secondary)" }}>
                           {g.message}
                         </td>
                       </tr>

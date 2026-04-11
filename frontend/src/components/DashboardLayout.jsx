@@ -124,10 +124,7 @@ export default function DashboardLayout({ user, onLogout }) {
             </Button>
           </div>
 
-          <div
-            className="show-on-mobile items-center"
-            style={{ display: "none" }}
-          >
+          <div className="show-on-mobile items-center">
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               style={{
@@ -174,7 +171,17 @@ export default function DashboardLayout({ user, onLogout }) {
         {isMobileMenuOpen && (
           <div
             className="nav-menu-mobile show-on-mobile"
-            style={{ display: "none", flexDirection: "column" }}
+            style={{ 
+              flexDirection: "column",
+              position: "absolute",
+              top: "80px",
+              left: 0,
+              right: 0,
+              background: "white",
+              padding: "1rem 2rem",
+              borderBottom: "1px solid var(--color-border)",
+              boxShadow: "0 10px 20px rgba(0,0,0,0.05)"
+            }}
           >
             {navLinks.map((link) => {
               const isActive =

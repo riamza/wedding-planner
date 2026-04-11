@@ -26,22 +26,22 @@ const TableVisualizer = ({ table, onAssignClick, onDeleteClick }) => {
       {onDeleteClick && (
         <button
           onClick={() => onDeleteClick(table.id)}
-          className="absolute top-3 right-3 text-red-400 hover:text-red-600 hover:bg-red-50 p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all focus:opacity-100 outline-none"
-          title="Șterge masa"
+          className="absolute top-4 right-4 bg-white text-gray-400 hover:text-red-500 hover:bg-red-50 p-2 rounded-full opacity-100 sm:opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-sm cursor-pointer border border-gray-100"
+          title={t("delete_table", "Șterge masa")}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="18"
-            height="18"
+            width="14"
+            height="14"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
-            strokeWidth="2"
+            strokeWidth="3"
             strokeLinecap="round"
             strokeLinejoin="round"
           >
-            <polyline points="3 6 5 6 21 6"></polyline>
-            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
           </svg>
         </button>
       )}
@@ -244,15 +244,15 @@ export default function SeatingPlanner() {
 
   return (
     <div>
-      <header className="flex justify-between items-center mb-8">
+      <header className="flex flex-responsive justify-between items-center mb-8">
         <div>
           <Heading level={2} color="var(--color-primary)">
             {t("seating_planner")}
           </Heading>
           <Text secondary>{t("seating_subtitle")}</Text>
         </div>
-        <div className="flex gap-4 items-center">
-          <div style={{ textAlign: "right" }}>
+        <div className="flex gap-4 items-center w-full sm:w-auto mt-4 sm:mt-0 justify-between sm:justify-end">
+          <div style={{ textAlign: "left" }}>
             <Text style={{ fontWeight: 600 }}>
               {occupiedSeats} / {totalSeats} {t("seats")}
             </Text>
@@ -260,14 +260,14 @@ export default function SeatingPlanner() {
               {t("assigned")}
             </Text>
           </div>
-          <Button onClick={() => setShowAdd(!showAdd)}>
+          <Button onClick={() => setShowAdd(!showAdd)} className="mobile-full-btn">
             {showAdd ? t("btn_cancel") : t("add_table")}
           </Button>
         </div>
       </header>
 
       {showAdd && (
-        <Card className="mb-8 p-6 fade-in flex gap-4 items-center">
+        <Card className="mb-8 p-6 fade-in flex gap-4 items-center flex-responsive">
           <Input
             placeholder={t("table_name")}
             value={newTable.name}
@@ -287,7 +287,7 @@ export default function SeatingPlanner() {
             }
             style={{ width: "120px" }}
           />
-          <Button onClick={handleAddTable}>{t("btn_add")}</Button>
+          <Button className="mobile-full-btn" onClick={handleAddTable}>{t("btn_add")}</Button>
         </Card>
       )}
 
@@ -315,16 +315,27 @@ export default function SeatingPlanner() {
 
       {assigningTable && (
         <div
-          className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6"
           style={{
-            backgroundColor: "rgba(0, 0, 0, 0.4)",
-            backdropFilter: "blur(2px)",
+            backgroundColor: "rgba(74, 59, 66, 0.4)",
+            backdropFilter: "blur(4px)",
           }}
         >
-          <Card
-            className="w-full max-w-4xl bg-white flex flex-col shadow-xl"
-            style={{ maxHeight: "85vh", padding: 0 }}
+          <div
+            className="w-full max-w-4xl bg-white flex flex-col shadow-2xl relative"
+            style={{ 
+              maxHeight: "85vh", 
+              borderRadius: "24px", 
+              border: "1px solid var(--color-border)",
+              overflow: "hidden"
+            }}
           >
+            {/* Top accent border */}
+            <div style={{
+              height: "4px",
+              background: "linear-gradient(90deg, var(--color-primary) 0%, var(--color-accent) 100%)",
+              width: "100%",
+            }}></div>
             {/* Header */}
             <div
               className="p-6 border-b flex justify-between items-center"
@@ -402,220 +413,95 @@ export default function SeatingPlanner() {
               </select>
             </div>
 
-            {/* Table */}
-            <div className="flex-1 overflow-auto">
-              <table
-                className="w-full text-left border-collapse"
-                style={{ minWidth: "600px" }}
-              >
-                <thead className="sticky top-0 bg-white shadow-sm z-10">
-                  <tr>
-                    <th
-                      className="p-4 font-semibold text-sm border-b"
-                      style={{
-                        color: "var(--color-text)",
-                        borderColor: "var(--color-border)",
-                        width: "50px",
-                      }}
-                    ></th>
-                    <th
-                      className="p-4 font-semibold text-sm border-b"
-                      style={{
-                        color: "var(--color-text-secondary)",
-                        borderColor: "var(--color-border)",
-                      }}
-                    >
-                      Nume complet
-                    </th>
-                    <th
-                      className="p-4 font-semibold text-sm border-b"
-                      style={{
-                        color: "var(--color-text-secondary)",
-                        borderColor: "var(--color-border)",
-                      }}
-                    >
-                      Locuri
-                    </th>
-                    <th
-                      className="p-4 font-semibold text-sm border-b"
-                      style={{
-                        color: "var(--color-text-secondary)",
-                        borderColor: "var(--color-border)",
-                      }}
-                    >
-                      Categorie
-                    </th>
-                    <th
-                      className="p-4 font-semibold text-sm border-b"
-                      style={{
-                        color: "var(--color-text-secondary)",
-                        borderColor: "var(--color-border)",
-                      }}
-                    >
-                      Status
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {availableGuests
-                    .filter(
-                      (g) =>
-                        !groupFilter || (g.category || g.group) === groupFilter,
-                    )
-                    .map((g) => {
-                      const guestSlots =
-                        1 + (g.additionalGuests || 0) + (g.children || 0);
-                      const isSelected = selectedGuestIds.includes(g.id);
+            {/* Table / List */}
+            <div className="flex-1 overflow-auto p-2 sm:p-4" style={{ backgroundColor: 'var(--color-bg)' }}>
+              <div className="flex flex-col gap-3">
+                {availableGuests
+                  .filter((g) => !groupFilter || (g.category || g.group) === groupFilter)
+                  .map((g) => {
+                    const guestSlots = 1 + (g.additionalGuests || 0) + (g.children || 0);
+                    const isSelected = selectedGuestIds.includes(g.id);
+                    
+                    const currentTotalSlots = availableGuests
+                      .filter((ag) => selectedGuestIds.includes(ag.id))
+                      .reduce((acc, ag) => acc + 1 + (ag.additionalGuests || 0) + (ag.children || 0), 0);
+                    
+                    const capacity = assigningTable.seats || assigningTable.capacity || 0;
+                    const isAlreadyElsewhere = g.tableId && g.tableId !== assigningTable.id;
+                    const existingTable = tables.find((t) => t.id === g.tableId);
+                    const groupName = g.category || g.group;
+                    const willOvershoot = !isSelected && currentTotalSlots + guestSlots > capacity;
 
-                      const currentTotalSlots = availableGuests
-                        .filter((ag) => selectedGuestIds.includes(ag.id))
-                        .reduce(
-                          (acc, ag) =>
-                            acc +
-                            1 +
-                            (ag.additionalGuests || 0) +
-                            (ag.children || 0),
-                          0,
-                        );
-
-                      const capacity =
-                        assigningTable.seats || assigningTable.capacity || 0;
-                      const isAlreadyElsewhere =
-                        g.tableId && g.tableId !== assigningTable.id;
-                      const existingTable = tables.find(
-                        (t) => t.id === g.tableId,
-                      );
-                      const groupName = g.category || g.group;
-
-                      const willOvershoot =
-                        !isSelected &&
-                        currentTotalSlots + guestSlots > capacity;
-
-                      return (
-                        <tr
-                          key={g.id}
-                          className={`transition-colors cursor-pointer hover:bg-gray-50 border-b ${willOvershoot ? "opacity-50" : ""}`}
-                          style={{
-                            borderColor: "var(--color-border)",
-                            backgroundColor: isSelected
-                              ? "rgba(var(--color-primary-rgb, 0,0,0), 0.04)"
-                              : undefined,
-                          }}
-                          onClick={() => {
-                            if (willOvershoot) return;
-                            toggleGuestSelect(
-                              g.id,
-                              currentTotalSlots,
-                              guestSlots,
-                              capacity,
-                            );
-                          }}
-                        >
-                          <td className="p-4 text-center">
-                            <input
-                              type="checkbox"
-                              checked={isSelected}
-                              onChange={() => {
-                                if (willOvershoot) return;
-                                toggleGuestSelect(
-                                  g.id,
-                                  currentTotalSlots,
-                                  guestSlots,
-                                  capacity,
-                                );
-                              }}
-                              onClick={(e) => e.stopPropagation()}
-                              className="w-4 h-4 cursor-pointer"
-                              style={{ accentColor: "var(--color-primary)" }}
-                            />
-                          </td>
-                          <td className="p-4">
-                            <span
+                    return (
+                      <div
+                        key={g.id}
+                        onClick={() => {
+                          if (willOvershoot) return;
+                          toggleGuestSelect(g.id, currentTotalSlots, guestSlots, capacity);
+                        }}
+                        className={`flex items-center justify-between p-3 sm:p-4 rounded-2xl border transition-all cursor-pointer ${willOvershoot ? 'opacity-50 grayscale' : 'hover:shadow-md'}`}
+                        style={{
+                          backgroundColor: isSelected ? 'white' : 'var(--color-card)',
+                          borderColor: isSelected ? 'var(--color-primary)' : 'var(--color-border)',
+                          boxShadow: isSelected ? '0 4px 12px rgba(212, 163, 179, 0.2)' : 'none',
+                        }}
+                      >
+                        <div className="flex items-center gap-3 sm:gap-4">
+                          <div className="flex-shrink-0">
+                            <div
+                              className="w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center border-2 transition-colors"
                               style={{
-                                fontWeight: isSelected ? 600 : 500,
-                                color: isSelected
-                                  ? "var(--color-primary)"
-                                  : "var(--color-text)",
+                                borderColor: isSelected ? 'var(--color-primary)' : 'var(--color-border)',
+                                backgroundColor: isSelected ? 'var(--color-primary)' : 'transparent',
                               }}
                             >
-                              {g.name ||
-                                g.fullName ||
-                                g.firstName + " " + g.lastName}
-                            </span>
-                          </td>
-                          <td className="p-4">
-                            <Badge
-                              color={
-                                isSelected ? "var(--color-primary)" : "gray"
-                              }
+                              {isSelected && (
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                                  <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                              )}
+                            </div>
+                          </div>
+                          <div>
+                            <div style={{ fontWeight: isSelected ? 600 : 500, color: 'var(--color-text)', fontSize: '0.95rem' }}>
+                              {g.name || g.fullName || g.firstName + " " + g.lastName}
+                            </div>
+                            <div className="flex flex-wrap items-center gap-2 mt-1">
+                              <Badge color={isSelected ? 'var(--color-primary)' : 'gray'}>
+                                {guestSlots} loc{guestSlots !== 1 ? 'uri' : ''}
+                              </Badge>
+                              {groupName && (
+                                <span style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)' }}>• {groupName}</span>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="text-right">
+                          {isAlreadyElsewhere && !isSelected ? (
+                            <span
+                              style={{ fontSize: '0.7rem', backgroundColor: '#fef3c7', color: '#b45309', padding: '4px 8px', borderRadius: '12px' }}
                             >
-                              {guestSlots} loc{guestSlots !== 1 ? "uri" : ""}
-                            </Badge>
-                          </td>
-                          <td
-                            className="p-4 text-sm"
-                            style={{ color: "var(--color-text-secondary)" }}
-                          >
-                            {groupName || "-"}
-                          </td>
-                          <td className="p-4">
-                            {isAlreadyElsewhere && !isSelected ? (
-                              <span
-                                style={{
-                                  fontSize: "0.75rem",
-                                  backgroundColor: "#fef3c7",
-                                  color: "#b45309",
-                                  padding: "4px 8px",
-                                  borderRadius: "12px",
-                                }}
-                              >
-                                La{" "}
-                                {existingTable
-                                  ? existingTable.name
-                                  : "altă masă"}
-                              </span>
-                            ) : isSelected ? (
-                              <span
-                                style={{
-                                  fontSize: "0.75rem",
-                                  backgroundColor: "var(--color-primary)",
-                                  color: "white",
-                                  padding: "4px 8px",
-                                  borderRadius: "12px",
-                                  opacity: 0.8,
-                                }}
-                              >
-                                Selectat
-                              </span>
-                            ) : (
-                              <span
-                                style={{
-                                  fontSize: "0.75rem",
-                                  backgroundColor: "#f1f5f9",
-                                  color: "#6b7280",
-                                  padding: "4px 8px",
-                                  borderRadius: "12px",
-                                }}
-                              >
-                                Nepartizat
-                              </span>
-                            )}
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  {availableGuests.filter(
-                    (g) =>
-                      !groupFilter || (g.category || g.group) === groupFilter,
-                  ).length === 0 && (
-                    <tr>
-                      <td colSpan="5" className="p-8 text-center text-gray-500">
-                        Niciun invitat găsit
-                      </td>
-                    </tr>
+                              La {existingTable ? existingTable.name : 'altă masă'}
+                            </span>
+                          ) : isSelected ? (
+                            <span
+                              style={{ fontSize: '0.7rem', backgroundColor: 'var(--color-primary)', color: 'white', padding: '4px 8px', borderRadius: '12px', opacity: 0.9 }}
+                            >
+                              Selectat
+                            </span>
+                          ) : null}
+                        </div>
+                      </div>
+                    );
+                  })}
+                  
+                  {availableGuests.filter((g) => !groupFilter || (g.category || g.group) === groupFilter).length === 0 && (
+                    <div className="p-8 text-center text-gray-500">
+                      Niciun invitat găsit
+                    </div>
                   )}
-                </tbody>
-              </table>
+              </div>
             </div>
 
             {/* Footer */}
@@ -631,7 +517,7 @@ export default function SeatingPlanner() {
               </Button>
               <Button onClick={handleSaveAssigned}>{t("btn_save")}</Button>
             </div>
-          </Card>
+          </div>
         </div>
       )}
     </div>
